@@ -29,7 +29,7 @@ export default async function LibraryPage() {
     .eq('access_status', 'active')
 
   return (
-    <div className="container max-w-6xl py-10 space-y-8">
+    <div className="container max-w-6xl pt-32 pb-10 space-y-8">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">My Library</h1>
         <p className="text-muted-foreground">Access your purchased educational resources.</p>

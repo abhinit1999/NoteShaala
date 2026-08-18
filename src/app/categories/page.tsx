@@ -18,7 +18,7 @@ export default async function CategoriesPage() {
   // We can also fetch the product count per category, but let's keep it simple for now
   
   return (
-    <div className="container py-12 md:py-16 flex flex-col gap-8 min-h-[calc(100vh-8rem)]">
+    <div className="container pt-32 pb-12 md:pt-40 md:pb-16 flex flex-col gap-8 min-h-[calc(100vh-8rem)]">
       <div className="max-w-3xl mb-8">
         <h1 className="text-4xl font-bold tracking-tight mb-4">Browse Categories</h1>
         <p className="text-lg text-muted-foreground">

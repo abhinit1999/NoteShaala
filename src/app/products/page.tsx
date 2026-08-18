@@ -76,7 +76,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   const { data: products } = await query
 
   return (
-    <div className="container py-8 md:py-12 flex flex-col md:flex-row gap-8">
+    <div className="container pt-32 pb-8 md:pt-40 md:pb-12 flex flex-col md:flex-row gap-8">
       {/* Sidebar Filters */}
       <aside className="w-full md:w-64 shrink-0 space-y-8">
         <div>

@@ -21,7 +21,7 @@ export default async function AccountPage() {
     .single()
 
   return (
-    <div className="container max-w-4xl py-10 space-y-8">
+    <div className="container max-w-4xl pt-32 pb-10 space-y-8">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Account</h1>
         <p className="text-muted-foreground">Manage your account settings and profile.</p>

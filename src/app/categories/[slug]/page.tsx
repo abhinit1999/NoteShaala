@@ -50,7 +50,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     .order('created_at', { ascending: false })
 
   return (
-    <div className="container py-8 md:py-12 flex flex-col gap-8">
+    <div className="container pt-32 pb-8 md:pt-40 md:pb-12 flex flex-col gap-8">
       {/* Category Header */}
       <div className="text-center max-w-3xl mx-auto mb-8">
         <h1 className="text-4xl font-bold tracking-tight mb-4">{category.title}</h1>
