@@ -47,7 +47,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="pt-32 max-w-screen-2xl mx-auto px-6 overflow-hidden relative">
+    <div className="pt-12 max-w-screen-2xl mx-auto px-6 overflow-hidden relative">
       {/* Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-glow-gradient pointer-events-none -z-10"></div>
       
