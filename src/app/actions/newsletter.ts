@@ -1,0 +1,27 @@
+"use server"
+
+import { createClient } from "@/lib/supabase/server"
+
+export async function subscribeToNewsletter(formData: FormData) {
+  const email = formData.get("email") as string
+
+  if (!email || !email.includes("@")) {
+    return { error: "Please enter a valid email address." }
+  }
+
+  const supabase = await createClient()
+
+  const { error } = await supabase
+    .from("newsletter_subscribers")
+    .insert({ email })
+
+  if (error) {
+    // Error code 23505 is unique constraint violation (already subscribed)
+    if (error.code === '23505') {
+      return { success: true, message: "You are already subscribed!" }
+    }
+    return { error: "Something went wrong. Please try again later." }
+  }
+
+  return { success: true, message: "Thank you for subscribing!" }
+}
