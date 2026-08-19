@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { buttonVariants } from '@/components/ui/button'
+import { Plus } from 'lucide-react'
 
 export default async function LibraryPage() {
   const supabase = await createClient()
@@ -11,6 +12,8 @@ export default async function LibraryPage() {
   if (error || !user) {
     redirect('/login')
   }
+
+  const isAdmin = user.email === process.env.ADMIN_EMAIL
 
   // Fetch purchased products
   const { data: userProducts } = await supabase
@@ -30,9 +33,16 @@ export default async function LibraryPage() {
 
   return (
     <div className="container max-w-6xl pt-32 pb-10 space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">My Library</h1>
-        <p className="text-muted-foreground">Access your purchased educational resources.</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">My Library</h1>
+          <p className="text-muted-foreground">Access your purchased educational resources.</p>
+        </div>
+        {isAdmin && (
+          <Link href="/admin/products/new" className={buttonVariants({ variant: "default" })}>
+            <Plus className="w-4 h-4 mr-2" /> Add Product
+          </Link>
+        )}
       </div>
 
       {!userProducts || userProducts.length === 0 ? (

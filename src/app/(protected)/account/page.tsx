@@ -1,8 +1,10 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import Link from 'next/link'
 import { signOut } from '@/app/actions/auth'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Plus } from 'lucide-react'
 
 export default async function AccountPage() {
   const supabase = await createClient()
@@ -13,6 +15,8 @@ export default async function AccountPage() {
     redirect('/login')
   }
 
+  const isAdmin = user.email === process.env.ADMIN_EMAIL
+
   // Fetch profile
   const { data: profile } = await supabase
     .from('profiles')
@@ -22,9 +26,16 @@ export default async function AccountPage() {
 
   return (
     <div className="container max-w-4xl pt-32 pb-10 space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Account</h1>
-        <p className="text-muted-foreground">Manage your account settings and profile.</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Account</h1>
+          <p className="text-muted-foreground">Manage your account settings and profile.</p>
+        </div>
+        {isAdmin && (
+          <Link href="/admin/products/new" className={buttonVariants({ variant: "default" })}>
+            <Plus className="w-4 h-4 mr-2" /> Add Product
+          </Link>
+        )}
       </div>
       
       <div className="grid gap-6">
