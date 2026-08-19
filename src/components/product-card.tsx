@@ -49,7 +49,7 @@ export function ProductCard({ product }: ProductCardProps) {
               </Badge>
             )}
             {discount > 0 && !product.is_free && (
-              <Badge variant="destructive" className="font-semibold">
+              <Badge className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold">
                 {discount}% OFF
               </Badge>
             )}
