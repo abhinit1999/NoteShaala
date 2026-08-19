@@ -85,7 +85,7 @@ export default async function Home() {
         {/* Right Side 3D Image */}
         <div className="flex-1 relative hidden lg:flex items-center justify-center max-w-lg xl:max-w-xl w-full">
           <div className="absolute inset-0 bg-primary/40 blur-[120px] rounded-full mix-blend-screen"></div>
-          <div className="relative z-20 w-full animate-bounce" style={{animationDuration: '6s'}}>
+          <div className="relative z-20 w-full">
             <div 
               className="relative w-full h-full flex items-center justify-center"
               style={{
