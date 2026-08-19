@@ -50,9 +50,11 @@ export function MobileNav({ user, isAdmin }: MobileNavProps) {
             {user ? (
               <>
                 {isAdmin && (
-                  <Link href="/admin/dashboard" onClick={() => setIsOpen(false)} className="w-full px-4 py-3 text-center text-sm font-medium text-purple-400 border border-purple-500/50 rounded-lg hover:bg-purple-500/10 transition-colors">Admin Panel</Link>
+                  <>
+                    <Link href="/admin/dashboard" onClick={() => setIsOpen(false)} className="w-full px-4 py-3 text-center text-sm font-medium text-purple-400 border border-purple-500/50 rounded-lg hover:bg-purple-500/10 transition-colors">Admin Panel</Link>
+                    <Link href="/library" onClick={() => setIsOpen(false)} className="w-full px-4 py-3 text-center text-sm font-medium text-white border border-border rounded-lg hover:bg-white/5 transition-colors">My Library</Link>
+                  </>
                 )}
-                <Link href="/library" onClick={() => setIsOpen(false)} className="w-full px-4 py-3 text-center text-sm font-medium text-white border border-border rounded-lg hover:bg-white/5 transition-colors">My Library</Link>
                 <Link href="/account" onClick={() => setIsOpen(false)} className="w-full px-5 py-3 text-center text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-hover transition-colors shadow-lg shadow-primary/20">Account</Link>
               </>
             ) : (

@@ -38,9 +38,11 @@ export async function Navbar() {
           {user ? (
             <>
               {isAdmin && (
-                <Link href="/admin/dashboard" className="hidden lg:block px-4 py-2 text-sm font-medium text-purple-400 border border-purple-500/50 rounded-lg hover:bg-purple-500/10 transition-colors">Admin Panel</Link>
+                <>
+                  <Link href="/admin/dashboard" className="hidden lg:block px-4 py-2 text-sm font-medium text-purple-400 border border-purple-500/50 rounded-lg hover:bg-purple-500/10 transition-colors">Admin Panel</Link>
+                  <Link href="/library" className="hidden lg:block px-4 py-2 text-sm font-medium text-white border border-border rounded-lg hover:bg-white/5 transition-colors">My Library</Link>
+                </>
               )}
-              <Link href="/library" className="hidden lg:block px-4 py-2 text-sm font-medium text-white border border-border rounded-lg hover:bg-white/5 transition-colors">My Library</Link>
               <Link href="/account" className="hidden lg:block px-5 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-hover transition-colors shadow-lg shadow-primary/20">Account</Link>
             </>
           ) : (
