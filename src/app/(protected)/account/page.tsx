@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { signOut } from '@/app/actions/auth'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Plus, Package, CreditCard, Clock, LogOut } from 'lucide-react'
+import { Plus, Package, CreditCard, Clock, LogOut, FileText } from 'lucide-react'
 import { AccountSettingsForm } from '@/components/account-settings-form'
 import {
   Table,
@@ -33,12 +33,23 @@ export default async function AccountPage() {
     .eq('id', user.id)
     .single()
 
-  // 2. Fetch User Stats (Owned Products Count)
-  const { count: productsCount } = await supabase
+  // 2. Fetch User Products (Replaces simple count)
+  const { data: userProducts } = await supabase
     .from('user_products')
-    .select('*', { count: 'exact', head: true })
+    .select(`
+      granted_at,
+      products (
+        id,
+        title,
+        short_description,
+        cover_image,
+        slug
+      )
+    `)
     .eq('user_id', user.id)
     .eq('access_status', 'active')
+
+  const productsCount = userProducts?.length || 0
 
   // 3. Fetch Orders for Total Spent & History
   const { data: orders } = await supabase
@@ -75,7 +86,7 @@ export default async function AccountPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
-        {/* Left Column: Stats & Activity */}
+        {/* Left Column: Stats, Products & Activity */}
         <div className="lg:col-span-2 space-y-8">
           
           {/* Quick Stats */}
@@ -86,7 +97,7 @@ export default async function AccountPage() {
                 <Package className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{productsCount || 0}</div>
+                <div className="text-2xl font-bold">{productsCount}</div>
                 <p className="text-xs text-muted-foreground mt-1">Resources in your library</p>
               </CardContent>
             </Card>
@@ -101,6 +112,56 @@ export default async function AccountPage() {
               </CardContent>
             </Card>
           </div>
+
+          {/* Purchased Products (My Library equivalent) */}
+          <Card className="border-primary/20 bg-primary/5">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <FileText className="w-5 h-5 text-primary" /> My Learning Materials
+              </CardTitle>
+              <CardDescription>Access the notes and bundles you have purchased.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {!userProducts || userProducts.length === 0 ? (
+                <div className="text-center py-8 text-muted-foreground text-sm border border-dashed rounded-md bg-background">
+                  You haven't purchased any products yet.
+                  <div className="mt-4">
+                    <Link href="/" className={buttonVariants({ variant: "outline" })}>Explore Store</Link>
+                  </div>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {userProducts.map((item: any) => (
+                    <div key={item.products.id} className="group relative border rounded-lg overflow-hidden flex flex-col bg-background">
+                      {item.products.cover_image ? (
+                        <div className="aspect-[4/3] bg-muted relative">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img 
+                            src={item.products.cover_image} 
+                            alt={item.products.title}
+                            className="object-cover w-full h-full transition-transform group-hover:scale-105"
+                          />
+                        </div>
+                      ) : (
+                        <div className="aspect-[4/3] bg-muted flex items-center justify-center">
+                          <span className="text-muted-foreground text-sm">No cover</span>
+                        </div>
+                      )}
+                      <div className="p-4 flex-1 flex flex-col">
+                        <h3 className="font-semibold line-clamp-1 text-sm">{item.products.title}</h3>
+                        <p className="text-xs text-muted-foreground mt-1 line-clamp-2 flex-1">
+                          {item.products.short_description}
+                        </p>
+                        <Link href={`/library/${item.products.slug}`} className={buttonVariants({ variant: "default", size: "sm", className: "w-full mt-4" })}>
+                          Access Content
+                        </Link>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
 
           {/* Recent Orders Table */}
           <Card>
