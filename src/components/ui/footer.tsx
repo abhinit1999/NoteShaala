@@ -1,13 +1,13 @@
 import Link from "next/link";
+import { Logo } from "./logo";
 
 export function Footer() {
   return (
     <footer className="bg-surface-container-low border-t border-border w-full py-16 mt-20">
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 px-6 max-w-screen-2xl mx-auto">
         <div className="col-span-2 lg:col-span-1">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-6 h-6 bg-primary rounded flex items-center justify-center font-bold text-white text-xs">N</div>
-            <span className="text-lg font-bold tracking-tight text-white">NoteShaala</span>
+          <div className="mb-6 -ml-2 scale-90 origin-left">
+            <Logo />
           </div>
           <p className="text-sm text-on-surface-variant mb-6">Learn. Create. Grow.</p>
           <p className="text-xs text-on-surface-variant/60">
