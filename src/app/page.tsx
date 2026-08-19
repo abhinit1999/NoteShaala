@@ -47,12 +47,12 @@ export default async function Home() {
   }
 
   return (
-    <div className="pt-12 max-w-screen-2xl mx-auto px-6 overflow-hidden relative">
+    <div className="pt-4 max-w-screen-2xl mx-auto px-6 overflow-hidden relative">
       {/* Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-glow-gradient pointer-events-none -z-10"></div>
       
       {/* BEGIN: HeroSection */}
-      <section className="flex flex-col lg:flex-row items-center justify-between gap-12 py-16 lg:py-24">
+      <section className="flex flex-col lg:flex-row items-center justify-between gap-8 py-8 lg:py-12">
         <div className="flex-1 space-y-8 relative z-10 max-w-2xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-xs font-semibold text-primary uppercase tracking-wider">
             <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
@@ -108,7 +108,7 @@ export default async function Home() {
       {/* END: HeroSection */}
       
       {/* BEGIN: Explore Categories */}
-      <section className="py-16">
+      <section className="py-8">
         <h2 className="text-3xl font-bold text-center mb-10">Explore by Categories</h2>
         {categories && categories.length > 0 ? (
           <CategoryCarousel categories={categories} />
@@ -119,7 +119,7 @@ export default async function Home() {
       {/* END: Explore Categories */}
 
       {/* BEGIN: Featured Products */}
-      <section className="py-16">
+      <section className="py-8">
         <div className="flex justify-between items-end mb-10">
           <h2 className="text-3xl font-bold">Featured Products</h2>
           <Link href="/products" className="text-sm font-medium text-on-surface-variant hover:text-white glass-panel px-4 py-2 rounded-lg transition-colors">View All Products</Link>
@@ -189,7 +189,7 @@ export default async function Home() {
       {/* END: Featured Products */}
 
       {/* BEGIN: Why Choose */}
-      <section className="py-16">
+      <section className="py-8">
         <h2 className="text-3xl font-bold text-center mb-10">Why Choose NoteShaala?</h2>
         <div className="flex flex-wrap lg:flex-nowrap gap-4 justify-between">
           <div className="glass-panel p-4 rounded-xl flex items-start gap-4 flex-1 min-w-[200px]">
@@ -242,7 +242,7 @@ export default async function Home() {
       {/* END: Why Choose */}
 
       {/* BEGIN: StatsBar */}
-      <section className="glass-panel rounded-2xl p-8 my-16 flex flex-wrap lg:flex-nowrap items-center justify-between gap-8">
+      <section className="glass-panel rounded-2xl p-6 md:p-8 my-8 flex flex-wrap lg:flex-nowrap items-center justify-between gap-6">
         <div className="flex items-center gap-6">
           <div>
             <p className="text-sm text-on-surface-variant font-medium">Trusted by</p>
@@ -282,7 +282,7 @@ export default async function Home() {
       {/* END: StatsBar */}
 
       {/* BEGIN: CTA Banner */}
-      <section className="glass-panel rounded-3xl p-8 md:p-12 my-16 bg-gradient-to-r from-surface-bright/50 to-primary/10 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+      <section className="glass-panel rounded-3xl p-6 md:p-10 my-8 bg-gradient-to-r from-surface-bright/50 to-primary/10 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
         <div className="relative z-10 max-w-xl w-full">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Get Free Resources<br/>&amp; Exclusive Updates</h2>
           <SubscribeForm />
