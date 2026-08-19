@@ -36,7 +36,7 @@ export async function login(formData: FormData) {
   }
 
   revalidatePath('/', 'layout')
-  redirect('/account')
+  redirect('/')
 }
 
 export async function signup(formData: FormData) {
@@ -73,7 +73,7 @@ export async function signup(formData: FormData) {
   // If email verification is disabled in Supabase, data.session will be present
   if (data.session) {
     revalidatePath('/', 'layout')
-    redirect('/account')
+    redirect('/')
   }
 
   return { success: 'Account created! Check your email to verify your account.' }
