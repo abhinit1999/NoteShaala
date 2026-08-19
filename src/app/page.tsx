@@ -84,16 +84,24 @@ export default async function Home() {
 
         {/* Right Side 3D Image */}
         <div className="flex-1 relative hidden lg:flex items-center justify-center max-w-lg xl:max-w-xl w-full">
-          <div className="absolute inset-0 bg-primary/30 blur-[100px] rounded-full mix-blend-screen"></div>
+          <div className="absolute inset-0 bg-primary/40 blur-[120px] rounded-full mix-blend-screen"></div>
           <div className="relative z-20 w-full animate-bounce" style={{animationDuration: '6s'}}>
-            <Image 
-              src="/hero-3d.png" 
-              alt="Premium Digital Marketplace" 
-              width={800} 
-              height={800}
-              className="object-contain drop-shadow-[0_0_30px_rgba(168,85,247,0.3)]"
-              priority
-            />
+            <div 
+              className="relative w-full h-full flex items-center justify-center"
+              style={{
+                maskImage: 'radial-gradient(circle at center, black 40%, transparent 70%)',
+                WebkitMaskImage: 'radial-gradient(circle at center, black 40%, transparent 70%)'
+              }}
+            >
+              <Image 
+                src="/hero-3d.png" 
+                alt="Premium Digital Marketplace" 
+                width={800} 
+                height={800}
+                className="object-cover mix-blend-screen opacity-90 scale-110"
+                priority
+              />
+            </div>
           </div>
         </div>
       </section>
