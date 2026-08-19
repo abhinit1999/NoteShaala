@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { NavLink } from "./nav-link";
 
 interface MobileNavProps {
   user: any;
@@ -36,13 +37,13 @@ export function MobileNav({ user, isAdmin }: MobileNavProps) {
       {isOpen && (
         <div className="absolute top-20 left-0 w-full bg-surface-bright/95 backdrop-blur-xl border-b border-border shadow-xl py-6 px-6 flex flex-col gap-6 z-50 animate-in slide-in-from-top-2">
           <nav className="flex flex-col gap-4">
-            <Link href="/" onClick={() => setIsOpen(false)} className="text-base font-medium text-white">Explore</Link>
-            <Link href="/categories/handwritten-notes" onClick={() => setIsOpen(false)} className="text-base font-medium text-white">Notes</Link>
-            <Link href="/categories/ai-video-prompts" onClick={() => setIsOpen(false)} className="text-base font-medium text-white">AI Prompts</Link>
-            <Link href="/categories/premium-bundles" onClick={() => setIsOpen(false)} className="text-base font-medium text-white">Bundles</Link>
-            <Link href="/free-resources" onClick={() => setIsOpen(false)} className="text-base font-medium text-white">Free Resources</Link>
-            <Link href="/blog" onClick={() => setIsOpen(false)} className="text-base font-medium text-white">Blog</Link>
-            <Link href="/about" onClick={() => setIsOpen(false)} className="text-base font-medium text-white">About</Link>
+            <NavLink href="/" onClick={() => setIsOpen(false)} isMobile>Explore</NavLink>
+            <NavLink href="/categories/handwritten-notes" onClick={() => setIsOpen(false)} isMobile>Notes</NavLink>
+            <NavLink href="/categories/ai-video-prompts" onClick={() => setIsOpen(false)} isMobile>AI Prompts</NavLink>
+            <NavLink href="/categories/premium-bundles" onClick={() => setIsOpen(false)} isMobile>Bundles</NavLink>
+            <NavLink href="/free-resources" onClick={() => setIsOpen(false)} isMobile>Free Resources</NavLink>
+            <NavLink href="/blog" onClick={() => setIsOpen(false)} isMobile>Blog</NavLink>
+            <NavLink href="/about" onClick={() => setIsOpen(false)} isMobile>About</NavLink>
           </nav>
           
           <div className="flex flex-col gap-3 pt-4 border-t border-border">

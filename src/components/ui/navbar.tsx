@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { MobileNav } from "./mobile-nav";
+import { NavLink } from "./nav-link";
+import { SearchBar } from "./search-bar";
 
 export async function Navbar() {
   const supabase = await createClient();
@@ -20,20 +22,18 @@ export async function Navbar() {
         
         {/* Navigation Links */}
         <nav className="hidden lg:flex items-center gap-8">
-          <Link href="/" className="text-sm font-medium text-primary font-bold border-b-2 border-primary pb-1">Explore</Link>
-          <Link href="/categories/handwritten-notes" className="text-sm font-medium text-on-surface-variant hover:text-white transition-colors">Notes</Link>
-          <Link href="/categories/ai-video-prompts" className="text-sm font-medium text-on-surface-variant hover:text-white transition-colors">AI Prompts</Link>
-          <Link href="/categories/premium-bundles" className="text-sm font-medium text-on-surface-variant hover:text-white transition-colors">Bundles</Link>
-          <Link href="/free-resources" className="text-sm font-medium text-on-surface-variant hover:text-white transition-colors">Free Resources</Link>
-          <Link href="/blog" className="text-sm font-medium text-on-surface-variant hover:text-white transition-colors">Blog</Link>
-          <Link href="/about" className="text-sm font-medium text-on-surface-variant hover:text-white transition-colors">About</Link>
+          <NavLink href="/">Explore</NavLink>
+          <NavLink href="/categories/handwritten-notes">Notes</NavLink>
+          <NavLink href="/categories/ai-video-prompts">AI Prompts</NavLink>
+          <NavLink href="/categories/premium-bundles">Bundles</NavLink>
+          <NavLink href="/free-resources">Free Resources</NavLink>
+          <NavLink href="/blog">Blog</NavLink>
+          <NavLink href="/about">About</NavLink>
         </nav>
 
         {/* Actions */}
         <div className="flex items-center gap-4">
-          <button aria-label="Search" className="p-2 text-on-surface-variant hover:text-white transition-colors">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path></svg>
-          </button>
+          <SearchBar />
           
           {user ? (
             <>
