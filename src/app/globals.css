@@ -5,9 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
-  --font-sora: var(--font-sora);
+  --font-inter: var(--font-inter);
 
   /* NoteShaala Custom Colors */
   --color-primary: #6366f1;
@@ -155,7 +155,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-surface text-on-surface font-sora;
+    @apply bg-surface text-on-surface font-sans;
   }
 }
 

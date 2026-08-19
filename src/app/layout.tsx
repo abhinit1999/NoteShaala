@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Sora } from "next/font/google";
+import { Inter } from "next/font/google";
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
-const sora = Sora({
-  variable: "--font-sora",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${sora.variable} min-h-screen flex flex-col bg-surface font-sans antialiased text-on-surface`}
+        className={`${inter.variable} min-h-screen flex flex-col bg-surface font-sans antialiased text-on-surface`}
       >
         <Navbar />
         <main className="flex-1 pt-20">{children}</main>
