@@ -52,8 +52,8 @@ export default async function Home() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-glow-gradient pointer-events-none -z-10"></div>
       
       {/* BEGIN: HeroSection */}
-      <section className="flex flex-col lg:flex-row items-center gap-12 py-16">
-        <div className="flex-1 space-y-8 relative z-10">
+      <section className="flex flex-col lg:flex-row items-center justify-between gap-12 py-16 lg:py-24">
+        <div className="flex-1 space-y-8 relative z-10 max-w-2xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-xs font-semibold text-primary uppercase tracking-wider">
             <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
             Premium Digital Marketplace
@@ -71,7 +71,7 @@ export default async function Home() {
               Explore Products
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path></svg>
             </Link>
-            <Link href="#" className="px-8 py-3 glass-panel text-white rounded-lg font-semibold hover:bg-white/10 transition-colors">
+            <Link href="/free-resources" className="px-8 py-3 glass-panel text-white rounded-lg font-semibold hover:bg-white/10 transition-colors">
               Browse Free Resources
             </Link>
           </div>
@@ -79,6 +79,21 @@ export default async function Home() {
             <span className="flex items-center gap-2"><span className="text-yellow-500">⚡</span> Instant Access</span>
             <span className="flex items-center gap-2"><svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path></svg> Lifetime Access</span>
             <span className="flex items-center gap-2"><svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.956 11.956 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path></svg> Secure Payment</span>
+          </div>
+        </div>
+
+        {/* Right Side 3D Image */}
+        <div className="flex-1 relative hidden lg:flex items-center justify-center max-w-lg xl:max-w-xl w-full">
+          <div className="absolute inset-0 bg-primary/30 blur-[100px] rounded-full mix-blend-screen"></div>
+          <div className="relative z-20 w-full animate-bounce" style={{animationDuration: '6s'}}>
+            <Image 
+              src="/hero-3d.png" 
+              alt="Premium Digital Marketplace" 
+              width={800} 
+              height={800}
+              className="object-contain drop-shadow-[0_0_30px_rgba(168,85,247,0.3)]"
+              priority
+            />
           </div>
         </div>
       </section>
