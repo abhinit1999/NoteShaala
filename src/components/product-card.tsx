@@ -99,9 +99,9 @@ export function ProductCard({ product }: ProductCardProps) {
             )}
           </div>
           
-          <Button size="lg" className="w-full text-lg font-semibold h-10 text-sm shadow-md pointer-events-none">
+          <div className="w-full text-lg font-semibold h-10 text-sm shadow-md flex items-center justify-center rounded-md bg-primary text-primary-foreground hover:bg-primary/90 pointer-events-none transition-colors">
             {product.is_free ? 'Get Access Now' : 'Buy Now'}
-          </Button>
+          </div>
         </CardFooter>
       </Card>
     </Link>
