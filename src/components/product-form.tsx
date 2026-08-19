@@ -65,8 +65,18 @@ export function ProductForm({ initialData, categories }: ProductFormProps) {
   const onSubmit = async (data: ProductFormData) => {
     setIsLoading(true)
 
+    // Auto-generate a URL-friendly slug if left empty
+    let finalSlug = data.slug;
+    if (!finalSlug || finalSlug.trim() === '') {
+      finalSlug = data.title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)+/g, '');
+    }
+
     const payload = {
       ...data,
+      slug: finalSlug,
       cover_image: coverImageUrl,
       protected_file_url: protectedFileUrl,
       category_id: categoryId || null,
