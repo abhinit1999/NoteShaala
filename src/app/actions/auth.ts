@@ -101,3 +101,48 @@ export async function signInWithGoogle() {
     redirect(data.url) // redirect to Google auth page
   }
 }
+
+export async function updateProfile(fullName: string) {
+  const supabase = await createClient()
+  
+  const { data: { user }, error: userError } = await supabase.auth.getUser()
+  if (userError || !user) {
+    return { error: 'Not authenticated' }
+  }
+
+  // Update profile record
+  const { error } = await supabase
+    .from('profiles')
+    .update({ full_name: fullName })
+    .eq('id', user.id)
+
+  if (error) {
+    return { error: error.message }
+  }
+
+  // Also update user metadata
+  await supabase.auth.updateUser({
+    data: { full_name: fullName }
+  })
+
+  revalidatePath('/account')
+  return { success: true }
+}
+
+export async function updatePassword(password: string) {
+  if (!password || password.length < 6) {
+    return { error: 'Password must be at least 6 characters' }
+  }
+
+  const supabase = await createClient()
+  
+  const { error } = await supabase.auth.updateUser({
+    password: password
+  })
+
+  if (error) {
+    return { error: error.message }
+  }
+
+  return { success: true }
+}
