@@ -32,7 +32,7 @@ export default async function LibraryPage() {
     .eq('access_status', 'active')
 
   return (
-    <div className="container max-w-6xl pt-32 pb-10 space-y-8">
+    <div className="container max-w-6xl pt-8 pb-10 space-y-8">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">My Library</h1>
@@ -46,7 +46,7 @@ export default async function LibraryPage() {
       </div>
 
       {!userProducts || userProducts.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 text-center border rounded-lg border-dashed">
+        <div className="flex flex-col items-center justify-center py-10 text-center border rounded-lg border-dashed">
           <h2 className="text-xl font-semibold mb-2">Your library is empty</h2>
           <p className="text-muted-foreground mb-6">Looks like you haven't purchased any products yet.</p>
           <Link href="/products" className={buttonVariants()}>Explore Notes & Guides</Link>

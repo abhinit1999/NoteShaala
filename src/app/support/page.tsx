@@ -1,6 +1,6 @@
 export default function SupportPage() {
   return (
-    <div className="pt-32 max-w-4xl mx-auto px-6 mb-24 min-h-[70vh]">
+    <div className="pt-8 max-w-4xl mx-auto px-6 mb-12 min-h-[50vh]">
       <div className="glass-panel p-8 md:p-12 rounded-3xl text-center">
         <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
           <span className="text-4xl">🛠️</span>

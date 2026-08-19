@@ -1,6 +1,6 @@
 export default function ContactPage() {
   return (
-    <div className="pt-32 max-w-4xl mx-auto px-6 mb-24 min-h-[70vh]">
+    <div className="pt-8 max-w-4xl mx-auto px-6 mb-12 min-h-[50vh]">
       <div className="glass-panel p-8 md:p-12 rounded-3xl">
         <h1 className="text-4xl font-bold mb-6">Contact Us</h1>
         <div className="space-y-6 text-on-surface-variant leading-relaxed">

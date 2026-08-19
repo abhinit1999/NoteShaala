@@ -29,7 +29,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     .order('created_at', { ascending: false });
 
   return (
-    <div className="container pt-32 pb-8 md:pt-40 md:pb-12 flex flex-col gap-8 min-h-[70vh]">
+    <div className="container pt-8 pb-8 md:pt-12 md:pb-12 flex flex-col gap-8 min-h-[50vh]">
       <div className="text-center max-w-3xl mx-auto mb-8">
         <h1 className="text-4xl font-bold tracking-tight mb-4">Search Results</h1>
         <p className="text-lg text-muted-foreground">Results for "{q}"</p>
@@ -42,7 +42,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
       </div>
 
       {!products || products.length === 0 ? (
-        <div className="py-20 text-center border rounded-lg border-dashed bg-muted/50">
+        <div className="py-10 text-center border rounded-lg border-dashed bg-muted/50">
           <h2 className="text-lg font-medium">No results found</h2>
           <p className="text-sm text-muted-foreground mt-1">Try adjusting your search query.</p>
         </div>

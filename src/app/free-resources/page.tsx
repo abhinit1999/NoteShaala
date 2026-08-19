@@ -19,7 +19,7 @@ export default async function FreeResourcesPage() {
     .order("created_at", { ascending: false });
 
   return (
-    <div className="pt-32 max-w-screen-2xl mx-auto px-6 mb-24 min-h-[70vh]">
+    <div className="pt-8 max-w-screen-2xl mx-auto px-6 mb-12 min-h-[50vh]">
       <div className="text-center max-w-3xl mx-auto mb-12">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-green-400">Free Resources</h1>
         <p className="text-lg text-on-surface-variant">

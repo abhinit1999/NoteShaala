@@ -62,7 +62,7 @@ export default async function AccountPage() {
   const totalSpent = orders?.reduce((acc, order) => acc + (order.total || 0), 0) || 0
 
   return (
-    <div className="container max-w-6xl pt-32 pb-16 space-y-8">
+    <div className="container max-w-6xl pt-8 pb-16 space-y-8">
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

@@ -22,7 +22,7 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
   if (!product) notFound()
 
   return (
-    <div className="container pt-32 pb-12 min-h-[80vh] flex items-center justify-center">
+    <div className="container pt-8 pb-12 min-h-[60vh] flex items-center justify-center">
       <div className="max-w-md w-full bg-surface border border-border rounded-xl p-8 shadow-2xl relative overflow-hidden">
         {/* Glow effect */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-32 bg-primary/20 blur-3xl rounded-full pointer-events-none"></div>
