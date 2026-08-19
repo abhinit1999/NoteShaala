@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { SubscribeForm } from "@/components/subscribe-form";
+import { CategoryCarousel } from "@/components/category-carousel";
 
 export const revalidate = 60;
 
@@ -25,7 +26,6 @@ export default async function Home() {
       .select('id, title, slug, description')
       .eq('is_active', true)
       .order('title', { ascending: true })
-      .limit(6)
   ]);
 
   let products = productsRes.data;
@@ -110,31 +110,11 @@ export default async function Home() {
       {/* BEGIN: Explore Categories */}
       <section className="py-16">
         <h2 className="text-3xl font-bold text-center mb-10">Explore by Categories</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-          {categories && categories.length > 0 ? categories.map((category, index) => {
-            const categoryStyles = [
-              { bg: 'bg-purple-500/20', shadow: 'shadow-[0_0_20px_rgba(168,85,247,0.3)]', emoji: '📝' },
-              { bg: 'bg-blue-500/20', shadow: 'shadow-[0_0_20px_rgba(59,130,246,0.3)]', emoji: '🎬' },
-              { bg: 'bg-emerald-500/20', shadow: 'shadow-[0_0_20px_rgba(16,185,129,0.3)]', emoji: '🖼️' },
-              { bg: 'bg-indigo-500/20', shadow: 'shadow-[0_0_20px_rgba(99,102,241,0.3)]', emoji: '🤖' },
-              { bg: 'bg-orange-500/20', shadow: 'shadow-[0_0_20px_rgba(249,115,22,0.3)]', emoji: '💼' },
-              { bg: 'bg-pink-500/20', shadow: 'shadow-[0_0_20px_rgba(236,72,153,0.3)]', emoji: '🎁' }
-            ];
-            const style = categoryStyles[index % categoryStyles.length];
-
-            return (
-              <Link key={category.id} href={`/categories/${category.slug}`} className="glass-panel p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors cursor-pointer group">
-                <div className={`w-16 h-16 rounded-xl ${style.bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform ${style.shadow}`}>
-                  <span className="text-3xl">{style.emoji}</span>
-                </div>
-                <h3 className="font-semibold text-sm mb-1">{category.title}</h3>
-                <p className="text-xs text-on-surface-variant line-clamp-1">{category.description || 'Explore resources'}</p>
-              </Link>
-            );
-          }) : (
-            <p className="text-on-surface-variant col-span-full text-center py-8">No categories found. Check back later!</p>
-          )}
-        </div>
+        {categories && categories.length > 0 ? (
+          <CategoryCarousel categories={categories} />
+        ) : (
+          <p className="text-on-surface-variant text-center py-8">No categories found. Check back later!</p>
+        )}
       </section>
       {/* END: Explore Categories */}
 
