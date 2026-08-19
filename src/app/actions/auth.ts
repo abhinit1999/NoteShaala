@@ -70,7 +70,13 @@ export async function signup(formData: FormData) {
     return { error: error.message }
   }
 
-  return { success: 'Check your email to confirm your account.' }
+  // If email verification is disabled in Supabase, data.session will be present
+  if (data.session) {
+    revalidatePath('/', 'layout')
+    redirect('/account')
+  }
+
+  return { success: 'Account created! Check your email to verify your account.' }
 }
 
 export async function signOut() {
