@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import { LayoutDashboard, Package, ShoppingCart, Users, ArrowLeft } from 'lucide-react'
+import { Package, ArrowLeft } from 'lucide-react'
 import { siteConfig } from '@/config/site'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import { AdminNav } from '@/components/admin-nav'
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
@@ -26,36 +27,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             <span className="">Admin Panel</span>
           </Link>
         </div>
-        <nav className="grid items-start px-4 text-sm font-medium py-4 gap-2">
-          <Link
-            href="/admin/dashboard"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted"
-          >
-            <LayoutDashboard className="h-4 w-4" />
-            Dashboard
-          </Link>
-          <Link
-            href="/admin/products"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted"
-          >
-            <Package className="h-4 w-4" />
-            Products
-          </Link>
-          <Link
-            href="/admin/orders"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted"
-          >
-            <ShoppingCart className="h-4 w-4" />
-            Orders
-          </Link>
-          <Link
-            href="/admin/customers"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted"
-          >
-            <Users className="h-4 w-4" />
-            Customers
-          </Link>
-        </nav>
+        
+        <AdminNav />
+
         <div className="mt-auto p-4">
           <Link
             href="/"
