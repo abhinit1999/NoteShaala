@@ -5,10 +5,34 @@ import Link from 'next/link'
 
 export const revalidate = 60
 
+import { Metadata } from 'next'
+
 interface CategoryPageProps {
   params: Promise<{
     slug: string
   }>
+}
+
+export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
+  const supabase = await createClient()
+  const { slug } = await params
+
+  const { data: category } = await supabase
+    .from('categories')
+    .select('title, description')
+    .eq('slug', slug)
+    .single()
+
+  if (!category) {
+    return {
+      title: 'Category Not Found',
+    }
+  }
+
+  return {
+    title: `${category.title} Products`,
+    description: category.description || `Browse our collection of products in the ${category.title} category.`,
+  }
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {

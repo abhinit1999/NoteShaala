@@ -1,3 +1,10 @@
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Contact Us',
+  description: 'Get in touch with NoteShaala for support, inquiries, or feedback.',
+}
+
 export default function ContactPage() {
   return (
     <div className="pt-8 max-w-4xl mx-auto px-6 mb-12 min-h-[50vh]">

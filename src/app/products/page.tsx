@@ -2,6 +2,13 @@ import { createClient } from '@/lib/supabase/server'
 import { ProductCard } from '@/components/product-card'
 import Link from 'next/link'
 
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'All Products',
+  description: 'Browse our complete catalog of digital learning resources, study notes, and developer guides.',
+}
+
 export const revalidate = 60
 
 interface ProductsPageProps {

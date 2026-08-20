@@ -1,3 +1,10 @@
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'About Us',
+  description: 'Learn about NoteShaala and our mission to provide the best digital learning resources for developers and creators.',
+}
+
 export default function AboutPage() {
   return (
     <div className="pt-8 max-w-4xl mx-auto px-6 mb-12 min-h-[50vh]">

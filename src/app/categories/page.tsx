@@ -3,6 +3,13 @@ import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Folder } from 'lucide-react'
 
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Browse Categories',
+  description: 'Explore our collection of learning resources organized by topic.',
+}
+
 export const revalidate = 60
 
 export default async function CategoriesPage() {

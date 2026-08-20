@@ -12,10 +12,48 @@ import { CheckCircle2, Clock, BookOpen, Star } from 'lucide-react'
 
 export const revalidate = 60
 
+import { Metadata } from 'next'
+
 interface ProductDetailPageProps {
   params: Promise<{
     slug: string
   }>
+}
+
+export async function generateMetadata({ params }: ProductDetailPageProps): Promise<Metadata> {
+  const supabase = await createClient()
+  const { slug } = await params
+
+  const { data: product } = await supabase
+    .from('products')
+    .select('title, short_description, cover_image')
+    .eq('slug', slug)
+    .single()
+
+  if (!product) {
+    return {
+      title: 'Product Not Found',
+    }
+  }
+
+  const images = product.cover_image ? [{ url: product.cover_image }] : []
+
+  return {
+    title: product.title,
+    description: product.short_description,
+    openGraph: {
+      title: product.title,
+      description: product.short_description || undefined,
+      type: 'article',
+      images,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: product.title,
+      description: product.short_description || undefined,
+      images,
+    },
+  }
 }
 
 export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
