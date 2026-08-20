@@ -20,10 +20,22 @@ export default async function AdminOrdersPage() {
     .from('orders')
     .select(`
       *,
-      profiles ( email ),
       order_items ( product_title_snapshot )
     `)
     .order('created_at', { ascending: false })
+
+  // Fetch emails manually for the orders since we can't join auth.users directly
+  const ordersWithEmails = await Promise.all((orders || []).map(async (order) => {
+    let email = 'Unknown'
+    const userId = order.user_id
+    if (userId) {
+      const { data: userData } = await supabase.auth.admin.getUserById(userId)
+      if (userData?.user?.email) {
+        email = userData.user.email
+      }
+    }
+    return { ...order, userEmail: email }
+  }))
 
   return (
     <div className="space-y-6">
@@ -45,14 +57,14 @@ export default async function AdminOrdersPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {orders && orders.length > 0 ? (
-              orders.map((order) => (
+            {ordersWithEmails && ordersWithEmails.length > 0 ? (
+              ordersWithEmails.map((order) => (
                 <TableRow key={order.id}>
                   <TableCell className="font-medium text-xs font-mono">{order.order_number}</TableCell>
                   <TableCell className="whitespace-nowrap">
                     {format(new Date(order.created_at), 'MMM d, yyyy')}
                   </TableCell>
-                  <TableCell>{order.profiles?.email || 'Unknown'}</TableCell>
+                  <TableCell>{order.userEmail}</TableCell>
                   <TableCell>
                     {order.order_items?.map((item: any) => item.product_title_snapshot).join(', ') || '—'}
                   </TableCell>

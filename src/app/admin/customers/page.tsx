@@ -14,7 +14,6 @@ export const dynamic = 'force-dynamic'
 export default async function AdminCustomersPage() {
   const supabase = supabaseAdmin
 
-  // Fetch profiles and join with orders to get a quick summary
   const { data: customers } = await supabase
     .from('profiles')
     .select(`
@@ -22,6 +21,14 @@ export default async function AdminCustomersPage() {
       orders ( id, total, status )
     `)
     .order('created_at', { ascending: false })
+
+  const { data: authData } = await supabase.auth.admin.listUsers()
+  const emailMap = new Map(authData?.users?.map(u => [u.id, u.email]) || [])
+
+  const customersWithEmails = (customers || []).map(c => ({
+    ...c,
+    email: emailMap.get(c.id) || 'Unknown'
+  }))
 
   return (
     <div className="space-y-6">
@@ -42,8 +49,8 @@ export default async function AdminCustomersPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {customers && customers.length > 0 ? (
-              customers.map((customer) => {
+            {customersWithEmails && customersWithEmails.length > 0 ? (
+              customersWithEmails.map((customer) => {
                 const capturedOrders = customer.orders?.filter((o: any) => o.status === 'captured') || []
                 const lifetimeValue = capturedOrders.reduce((acc: number, order: any) => acc + Number(order.total), 0)
 

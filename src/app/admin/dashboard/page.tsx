@@ -27,15 +27,15 @@ export default async function AdminDashboardPage() {
   ] = await Promise.all([
     supabase.from('products').select('*', { count: 'exact', head: true }),
     supabase.from('orders').select('*', { count: 'exact', head: true }).eq('status', 'captured'),
-    supabase.from('profiles').select('*', { count: 'exact', head: true }),
+    supabase.auth.admin.listUsers().then(res => ({ count: res.data?.users?.length || 0 })),
     supabase.from('payments').select('amount').eq('status', 'captured'),
     supabase
       .from('payments')
       .select(`
         *,
         orders (
-          order_number,
-          profiles ( email )
+          user_id,
+          order_number
         )
       `)
       .order('created_at', { ascending: false })
@@ -44,6 +44,19 @@ export default async function AdminDashboardPage() {
 
   // Calculate total revenue
   const totalRevenue = revenueData?.reduce((acc, payment) => acc + Number(payment.amount), 0) || 0
+
+  // Fetch emails manually for the recent payments since we can't join auth.users directly
+  const recentPaymentsWithEmails = await Promise.all((recentPayments || []).map(async (payment) => {
+    let email = 'Unknown'
+    const userId = payment.orders?.user_id
+    if (userId) {
+      const { data: userData } = await supabase.auth.admin.getUserById(userId)
+      if (userData?.user?.email) {
+        email = userData.user.email
+      }
+    }
+    return { ...payment, userEmail: email }
+  }))
 
   return (
     <div className="space-y-8">
@@ -121,8 +134,8 @@ export default async function AdminDashboardPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {recentPayments && recentPayments.length > 0 ? (
-                recentPayments.map((payment) => (
+              {recentPaymentsWithEmails && recentPaymentsWithEmails.length > 0 ? (
+                recentPaymentsWithEmails.map((payment) => (
                   <TableRow key={payment.id}>
                     <TableCell className="whitespace-nowrap">
                       {format(new Date(payment.created_at), 'MMM d, h:mm a')}
@@ -134,7 +147,7 @@ export default async function AdminDashboardPage() {
                       {payment.orders?.order_number || '—'}
                     </TableCell>
                     <TableCell>
-                      {payment.orders?.profiles?.email || 'Unknown'}
+                      {payment.userEmail}
                     </TableCell>
                     <TableCell>
                       {payment.status === 'captured' ? (
