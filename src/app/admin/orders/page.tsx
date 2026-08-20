@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { supabaseAdmin } from '@/lib/supabase/admin'
 import {
   Table,
   TableBody,
@@ -14,7 +14,7 @@ import { format } from 'date-fns'
 export const dynamic = 'force-dynamic'
 
 export default async function AdminOrdersPage() {
-  const supabase = await createClient()
+  const supabase = supabaseAdmin
 
   const { data: orders } = await supabase
     .from('orders')

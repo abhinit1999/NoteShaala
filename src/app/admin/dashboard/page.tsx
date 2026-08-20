@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { supabaseAdmin } from '@/lib/supabase/admin'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { IndianRupee, Users, Package, ShoppingCart } from 'lucide-react'
 import {
@@ -15,7 +15,7 @@ import { format } from 'date-fns'
 export const dynamic = 'force-dynamic'
 
 export default async function AdminDashboardPage() {
-  const supabase = await createClient()
+  const supabase = supabaseAdmin
 
   // Fetch metrics and recent payments concurrently
   const [

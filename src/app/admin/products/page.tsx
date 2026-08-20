@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { supabaseAdmin } from '@/lib/supabase/admin'
 import Link from 'next/link'
 import { Plus, Pencil, MoreHorizontal } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -23,7 +23,7 @@ import {
 export const dynamic = 'force-dynamic'
 
 export default async function AdminProductsPage() {
-  const supabase = await createClient()
+  const supabase = supabaseAdmin
 
   const { data: products } = await supabase
     .from('products')
