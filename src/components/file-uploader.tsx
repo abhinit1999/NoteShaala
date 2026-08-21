@@ -2,8 +2,9 @@
 
 import { useState, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { UploadCloud, File, X, CheckCircle2, Loader2 } from 'lucide-react'
+import { UploadCloud, File as FileIcon, X, CheckCircle2, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { PDFDocument, rgb, degrees, StandardFonts } from 'pdf-lib'
 
 interface FileUploaderProps {
   bucket: string
@@ -65,11 +66,11 @@ export function FileUploader({
     }
   }
 
-  const uploadFile = async (file: globalThis.File) => {
+  const uploadFile = async (originalFile: globalThis.File) => {
     setError(null)
 
     // Validate size
-    if (file.size > maxSizeMB * 1024 * 1024) {
+    if (originalFile.size > maxSizeMB * 1024 * 1024) {
       const err = new Error(`File is too large. Maximum size is ${maxSizeMB}MB.`)
       setError(err.message)
       if (onUploadError) onUploadError(err)
@@ -80,13 +81,56 @@ export function FileUploader({
       setIsUploading(true)
       setProgress(10) // Initial progress
 
-      const fileExt = file.name.split('.').pop()
+      let fileToUpload = originalFile
+
+      // Watermark logic for PDFs
+      if (originalFile.type === 'application/pdf') {
+        try {
+          setProgress(20) // Processing PDF
+          const arrayBuffer = await originalFile.arrayBuffer()
+          const pdfDoc = await PDFDocument.load(arrayBuffer)
+          const pages = pdfDoc.getPages()
+          const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold)
+          
+          for (const page of pages) {
+            const { width, height } = page.getSize()
+            const fontSize = 72
+            const text = 'NoteShaala'
+            const textWidth = font.widthOfTextAtSize(text, fontSize)
+            
+            // Draw diagonally in the center
+            page.drawText(text, {
+              x: width / 2 - textWidth / 2 + 50, // adjusted for rotation
+              y: height / 2 - fontSize / 2,
+              size: fontSize,
+              font: font,
+              color: rgb(0.5, 0.5, 0.5),
+              opacity: 0.25,
+              rotate: degrees(45),
+            })
+          }
+          
+          setProgress(40) // Saving PDF
+          const pdfBytes = await pdfDoc.save()
+          
+          // Create Blob first to satisfy TypeScript, then create File
+          const blob = new Blob([pdfBytes as any], { type: 'application/pdf' })
+          fileToUpload = new File([blob], originalFile.name, { type: 'application/pdf' })
+        } catch (pdfErr) {
+          console.error("Failed to watermark PDF:", pdfErr)
+          throw new Error("Failed to process PDF watermark. The file might be password protected or corrupted.")
+        }
+      }
+
+      setProgress(50) // Starting upload
+
+      const fileExt = fileToUpload.name.split('.').pop()
       const fileName = `${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`
       const filePath = folder ? `${folder}/${fileName}` : fileName
 
       const { data, error: uploadError } = await supabase.storage
         .from(bucket)
-        .upload(filePath, file, {
+        .upload(filePath, fileToUpload, {
           cacheControl: '3600',
           upsert: false,
         })
