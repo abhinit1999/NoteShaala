@@ -53,6 +53,13 @@ export function CheckoutButton({ productId, isFree, className }: CheckoutButtonP
       }
 
       if (data.isFree) {
+        // Track Purchase event for free product
+        if (typeof window !== 'undefined' && (window as any).fbq) {
+          ;(window as any).fbq('track', 'Purchase', {
+            value: 0,
+            currency: 'INR'
+          })
+        }
         // Free product, access granted immediately
         alert('Product added to your library!')
         router.push('/library')
@@ -92,6 +99,13 @@ export function CheckoutButton({ productId, isFree, className }: CheckoutButtonP
             const verifyData = await verifyRes.json()
 
             if (verifyRes.ok) {
+              // Track Purchase event
+              if (typeof window !== 'undefined' && (window as any).fbq) {
+                ;(window as any).fbq('track', 'Purchase', {
+                  value: data.amount / 100, // Convert paise to INR
+                  currency: data.currency
+                })
+              }
               // Redirect to library
               router.push('/library')
               router.refresh()
