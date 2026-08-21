@@ -1,6 +1,6 @@
 import { supabaseAdmin } from '@/lib/supabase/admin'
 import Link from 'next/link'
-import { Plus, Pencil, MoreHorizontal } from 'lucide-react'
+import { Plus, Pencil, MoreHorizontal, Eye } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { siteConfig } from '@/config/site'
@@ -99,11 +99,18 @@ export default async function AdminProductsPage() {
                   </TableCell>
                   <TableCell>{product.categories?.title || '—'}</TableCell>
                   <TableCell className="text-right">
-                    <Link href={`/admin/products/${product.id}/edit`}>
-                      <Button variant="ghost" size="icon" title="Edit Product">
-                        <Pencil className="h-4 w-4 text-muted-foreground hover:text-primary" />
-                      </Button>
-                    </Link>
+                    <div className="flex items-center justify-end gap-2">
+                      <Link href={`/api/downloads/${product.id}`} target="_blank">
+                        <Button variant="ghost" size="icon" title="Preview File">
+                          <Eye className="h-4 w-4 text-muted-foreground hover:text-primary" />
+                        </Button>
+                      </Link>
+                      <Link href={`/admin/products/${product.id}/edit`}>
+                        <Button variant="ghost" size="icon" title="Edit Product">
+                          <Pencil className="h-4 w-4 text-muted-foreground hover:text-primary" />
+                        </Button>
+                      </Link>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))

@@ -15,16 +15,30 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
       return NextResponse.redirect(new URL('/login', request.url))
     }
 
-    // 2. Verify Ownership
-    const { data: access } = await supabase
-      .from('user_products')
-      .select('id')
-      .eq('user_id', user.id)
-      .eq('product_id', productId)
-      .eq('access_status', 'active')
+    // 2. Verify Ownership OR Admin role
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
       .single()
 
-    if (!access) {
+    let hasAccess = false
+
+    if (profile?.role === 'admin') {
+      hasAccess = true
+    } else {
+      const { data: access } = await supabase
+        .from('user_products')
+        .select('id')
+        .eq('user_id', user.id)
+        .eq('product_id', productId)
+        .eq('access_status', 'active')
+        .single()
+      
+      if (access) hasAccess = true
+    }
+
+    if (!hasAccess) {
       return new NextResponse('Unauthorized access to product', { status: 403 })
     }
 
