@@ -2,15 +2,15 @@ import type { NextConfig } from "next";
 
 const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://checkout.razorpay.com https://connect.facebook.net;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://checkout.razorpay.com https://connect.facebook.net https://pagead2.googlesyndication.com https://partner.googleadservices.com;
   style-src 'self' 'unsafe-inline';
-  img-src 'self' blob: data: https://lh3.googleusercontent.com https://*.supabase.co https://www.facebook.com;
+  img-src 'self' blob: data: https://lh3.googleusercontent.com https://*.supabase.co https://www.facebook.com https://pagead2.googlesyndication.com;
   font-src 'self' data:;
   object-src 'none';
   base-uri 'self';
   form-action 'self' https://checkout.razorpay.com;
   frame-ancestors 'none';
-  frame-src 'self' https://api.razorpay.com/ https://checkout.razorpay.com/;
+  frame-src 'self' https://api.razorpay.com/ https://checkout.razorpay.com/ https://googleads.g.doubleclick.net https://tpc.googlesyndication.com;
   connect-src 'self' https://*.supabase.co https://checkout.razorpay.com wss://*.supabase.co https://www.facebook.com;
   upgrade-insecure-requests;
 `

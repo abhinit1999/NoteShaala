@@ -7,6 +7,8 @@ import "./globals.css";
 
 import { MetaPixel } from "@/components/meta-pixel";
 
+import { GoogleAdSense } from "@/components/google-adsense";
+
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -73,6 +75,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} min-h-screen flex flex-col bg-surface font-sans antialiased text-on-surface`}
       >
+        <GoogleAdSense />
         <MetaPixel />
         <Navbar />
         <main className="flex-1 pt-20">{children}</main>
